@@ -1,0 +1,26 @@
+{
+  "name": "umbraco",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "css-build": "node-sass --output-style compressed -rw src/scss -o wwwroot/css/",
+    "css-watch": "npm run css-build -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bourpie/Umbraco9.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bourpie/Umbraco9/issues"
+  },
+  "homepage": "https://github.com/bourpie/Umbraco9#readme",
+  "dependencies": {
+    "node-sass": "^7.0.1"
+  },
+  "devDependencies": {
+    "bootstrap": "^5.1.3"
+  }
+}
