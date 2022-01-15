@@ -1,0 +1,7 @@
+@inherits UmbracoViewPage
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+
+
+<li>
+    <a class="nav-link @(item.IsAncestorOrSelf(Model) ? "navi-link--active" : "")" 
+    href="@Model.Url()">@Model.Name @Model.Id</a></li>

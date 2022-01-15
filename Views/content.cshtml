@@ -1,15 +1,45 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Content>
-
 @using Clean.Core.Models.ViewModels
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
-
 
 @{
     Layout = "master.cshtml";
 }
 
-@await Html.PartialAsync("~/Views/Partials/pageHeader.cshtml", new PageHeaderViewModel(Model.Name, Model.Title, Model.Subtitle, Model.MainImage))
+@await Html.PartialAsync("~/Views/Partials/pageHeader.cshtml", new PageHeaderViewModel(Model.Name, Model.Title,
+Model.Subtitle, Model.MainImage))
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <aside>
 
-<article>
-    @Html.GetGridHtml(Model, "mainContent", "Clean")
-</article>
+                @{
+                    var site = Model.AncestorOrSelf(2);
+                    var parent = site.DescendantsOfType("content");
+                    var menu = Model.AncestorOrSelf("content").Children();
+                }
+
+                <a class="nav-link @Html.Raw(Model.Id == site.Id ? "navi-link--active" : "")"
+                    href="@site.Url()">@site.Name()</a>
+
+                <ul>
+                    @foreach (var child in Model.AncestorOrSelf(2).DescendantsOfType("content"))
+
+                    {
+
+                        <li class="nav-item">
+                        <a class="nav-link @(child.IsAncestorOrSelf(Model) ? "nav-link--active" : null)" href="@child.Url()">@child.Name</a>
+                        
+                        </li>
+
+                    }
+                </ul>           
+            </aside>
+        </div>
+        <div class="col-10">
+            <article>
+                @Html.GetGridHtml(Model, "mainContent", "Aide")
+            </article>
+        </div>
+    </div>
+</div>
