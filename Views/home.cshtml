@@ -11,9 +11,9 @@
 
 @if (Model.MainContent != null)
 {
-<article>
+<main>
     @Html.GetGridHtml(Model, "mainContent", "Clean")
-</article>
+</main>
 }
 
 @await Html.PartialAsync("~/Views/Partials/latestArticles.cshtml")

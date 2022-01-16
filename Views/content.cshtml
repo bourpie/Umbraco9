@@ -12,37 +12,42 @@ Model.Subtitle, Model.MainImage))
 <div class="container-fluid content">
     <div class="row sidebar">
         <div class="col-4 col-md-3 col-lg-2 col-xxxl-1 border-end">
-            <aside>
+            <nav class="nav-sidebar">
                 @{
                     var site = Model.AncestorOrSelf(2);
-                    var parent = site.DescendantsOfType("content");
+                    var parent = site.DescendantsOfType("content");                  
                 }
 
-                <h1 class="h6 mt-3">@(site.Name())</h1>
+                <h1 class="h6 mt-3"><a href="@(site.Url())">@(site.Name())</a></h1>
 
-                <ul class="nav flex-column mb-auto">
-                    @foreach (var child in parent)
+                <ul class="list">
+                    @foreach (var child in site.Children)
                     {
-                        <li class="nav-item">
-                            <a class="nav-link @(child.IsAncestorOrSelf(Model) ? "active" : null)" href="@child.Url()">@child.Name</a>
-
-                                <ul class="nav flex-column">
+                        <li class="list-item list-holder">
+                            <a 
+                                class="@(child.IsAncestorOrSelf(Model) ? "active" : null)" 
+                                href="@child.Url()">@(child.Name)
+                            </a>
+                                <ul class="list">
                                     @foreach (var subChild in child.Children)
                                     {
-                                        <li class="nav-item">
-                                            <a class="nav-link @(subChild.IsAncestorOrSelf(Model) ? "active" : null)" href="@subChild.Url()">@subChild.Name</a>
+                                        <li class="list-item">
+                                            <a 
+                                                class="@(subChild.IsAncestorOrSelf(Model) ? "active" : null)" 
+                                                href="@subChild.Url()">@(subChild.Name)
+                                            </a>
                                         </li>
                                     }
                                 </ul>
                         </li>
                     }
                 </ul>           
-            </aside>
+            </nav>
         </div>
         <div class="col-8 col-md-9 col-lg-10 col-xxxl-11">
-            <article>
-                @Html.GetGridHtml(Model, "mainContent", "Aide")
-            </article>
+            <main>
+                @Html.GetGridHtml(Model, "mainContent", "custom")
+            </main>
         </div>
     </div>
 </div>
